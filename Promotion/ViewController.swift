@@ -11,10 +11,10 @@ import UIKit
 class PracticeSport {
     var name: String
     var supportedActions: [String]
-    var image: UIImage
+    var image: String
     var gradient: [UIColor]
     
-    init(name: String, supportedActions: [String], image: UIImage, gradient: [UIColor]) {
+    init(name: String, supportedActions: [String], image: String, gradient: [UIColor]) {
         self.name = name
         self.supportedActions = supportedActions
         self.image = image
@@ -58,52 +58,52 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     let practiceSports: [PracticeSport] = [
-//        PracticeSport(
-//            name: "Create Challenge",
-//            supportedActions: [],
-//            image: UIImage(named: "soccer")!,
-//            gradient: cellRandomBackgroundColors()
-//        ),
+        PracticeSport(
+            name: "Create",
+            supportedActions: ["Custom move"],
+            image: "👍",
+            gradient: cellRandomBackgroundColors()
+        ),
         PracticeSport(
             name: "Basketball",
             supportedActions: ["Jump Shot", "Free Throw"],
-            image: UIImage(named: "basketball")!,
+            image: "🏀",
             gradient: cellRandomBackgroundColors()
         ),
         PracticeSport(
             name: "Soccer",
             supportedActions: ["Kick"],
-            image: UIImage(named: "soccer")!,
+            image: "⚽",
             gradient: cellRandomBackgroundColors()
         ),
         PracticeSport(
-            name: "Basketball",
+            name: "Voleyball",
             supportedActions: ["Jump Shot", "Free Throw"],
-            image: UIImage(named: "basketball")!,
+            image: "🏐",
             gradient: cellRandomBackgroundColors()
         ),
         PracticeSport(
-            name: "Soccer",
+            name: "Baseball",
             supportedActions: ["Kick"],
-            image: UIImage(named: "soccer")!,
+            image: "⚾",
             gradient: cellRandomBackgroundColors()
         ),
         PracticeSport(
-            name: "Basketball",
+            name: "Bowling",
             supportedActions: ["Jump Shot", "Free Throw"],
-            image: UIImage(named: "basketball")!,
+            image: "🎳",
             gradient: cellRandomBackgroundColors()
         ),
         PracticeSport(
-            name: "Soccer",
+            name: "Hockey",
             supportedActions: ["Kick"],
-            image: UIImage(named: "soccer")!,
+            image: "🏒",
             gradient: cellRandomBackgroundColors()
         ),
         PracticeSport(
-            name: "Basketball",
+            name: "Golf",
             supportedActions: ["Jump Shot", "Free Throw"],
-            image: UIImage(named: "basketball")!,
+            image: "⛳",
             gradient: cellRandomBackgroundColors()
         )
     ]
@@ -116,6 +116,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
         cell.cellLabel.text = practiceSports[indexPath.item].name
         cell.cellSubLabel.text = practiceSports[indexPath.item].supportedActions.joined(separator: ", ")
+        cell.cellImage.text = practiceSports[indexPath.item].image
+//        cell.cellImage.image = UIImage(systemName: "soccer-ball.circle.fill")
         
 //        let gradientLayer: CAGradientLayer = {
 //            let gradientLayer = CAGradientLayer()
