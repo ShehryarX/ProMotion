@@ -15,6 +15,8 @@
 		24150E3625697F1300FC9509 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24150E3425697F1300FC9509 /* LaunchScreen.storyboard */; };
 		24150E4125697F1300FC9509 /* PromotionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24150E4025697F1300FC9509 /* PromotionTests.swift */; };
 		24150E4C25697F1300FC9509 /* PromotionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24150E4B25697F1300FC9509 /* PromotionUITests.swift */; };
+		24150E5D256986F900FC9509 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24150E5C256986F900FC9509 /* CollectionViewCell.swift */; };
+		24150E6225699BD300FC9509 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24150E6125699BD300FC9509 /* CollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		24150E4725697F1300FC9509 /* PromotionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PromotionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24150E4B25697F1300FC9509 /* PromotionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionUITests.swift; sourceTree = "<group>"; };
 		24150E4D25697F1300FC9509 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		24150E5C256986F900FC9509 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		24150E6125699BD300FC9509 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				24150E3225697F1300FC9509 /* Assets.xcassets */,
 				24150E3425697F1300FC9509 /* LaunchScreen.storyboard */,
 				24150E3725697F1300FC9509 /* Info.plist */,
+				24150E5C256986F900FC9509 /* CollectionViewCell.swift */,
+				24150E6125699BD300FC9509 /* CollectionViewController.swift */,
 			);
 			path = Promotion;
 			sourceTree = "<group>";
@@ -260,7 +266,9 @@
 			files = (
 				24150E2E25697F1100FC9509 /* ViewController.swift in Sources */,
 				24150E2A25697F1100FC9509 /* AppDelegate.swift in Sources */,
+				24150E5D256986F900FC9509 /* CollectionViewCell.swift in Sources */,
 				24150E2C25697F1100FC9509 /* SceneDelegate.swift in Sources */,
+				24150E6225699BD300FC9509 /* CollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
