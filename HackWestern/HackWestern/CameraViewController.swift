@@ -12,7 +12,7 @@ protocol CameraViewControllerOutputDelegate: class {
     func cameraViewController(_ controller: CameraViewController, didReceiveBuffer buffer: CMSampleBuffer, orientation: CGImagePropertyOrientation)
 }
 
-class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+class CameraViewController: UIViewController {
     
     weak var outputDelegate: CameraViewControllerOutputDelegate?
     private let videoDataOutputQueue = DispatchQueue(label: "CameraFeedDataOutput", qos: .userInitiated,
@@ -36,8 +36,6 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         do {
             try setupAVSession()
         } catch {
-            print("Initial error:")
-            print(error)
             AppError.display(error, inViewController: self)
         }
     }
@@ -100,6 +98,12 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         
         // Get the interface orientaion from window scene to set proper video orientation on capture connection.
         let videoOrientation: AVCaptureVideoOrientation = .portrait
+//        switch view.window?.windowScene?.interfaceOrientation {
+//        case .landscapeRight:
+//            videoOrientation = .landscapeRight
+//        default:
+//            videoOrientation = .portrait
+//        }
   
         // Create and setup video feed view
         cameraFeedView = CameraFeedView(frame: view.bounds, session: session, videoOrientation: videoOrientation)
@@ -247,32 +251,15 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
             }
         }
     }
-    
-    
-    func startRecording() {
-        do {
-            try? setupAVSession()
-            
-            // Begin video capture
-        } catch {
-            print("StartRecordingError:")
-            print(error)
-        }
-    }
-    
-    func stopRecording() {
-        do {
-            print("stop recording")
-            let path = Bundle.main.path(forResource: "ideal-vball", ofType: "mov")!
-            startReadingAsset(AVAsset(url: URL(fileURLWithPath: path)))
-        } catch {
-            print("StopRecordingError:")
-            print(error)
-        }
-    }
-    
-    func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+}
+
+
+extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         outputDelegate?.cameraViewController(self, didReceiveBuffer: sampleBuffer, orientation: .right)
         
+        DispatchQueue.main.async {
+            // Camera setup stage has been reached
+        }
     }
 }

@@ -1,48 +1,12 @@
+/*
+See LICENSE folder for this sample’s licensing information.
+
+Abstract:
+This is a collection of common data types, constants and helper functions used in the app.
+*/
+
 import UIKit
 import Vision
-
-let observationsRequired = 300
-let maxObservationsAllowed = 400
-
-class StateBridge {
-    
-    static var shared = StateBridge()
-    
-    var classifier = TripleClassifierBridge()
-    
-    var isRecording = false
-}
-
-struct TripleClassifierBridge {
-
-    var poseObservations = [VNHumanBodyPoseObservation]()
-    
-
-    mutating func resetObservations() {
-        poseObservations = []
-    }
-
-    mutating func storeObservation(_ observation: VNHumanBodyPoseObservation) {
-        if poseObservations.count >= maxObservationsAllowed {
-            poseObservations.removeFirst()
-        }
-        poseObservations.append(observation)
-    }
-
-    mutating func classifyAction() -> TripleClassifierOutput? {
-        if poseObservations.count < observationsRequired {
-            return nil
-        }
-        
-        guard let actionClassifier = try? TripleClassifier(configuration: MLModelConfiguration()),
-              let poseMultiArray = prepareInputWithObservations(poseObservations),
-              let predictions = try? actionClassifier.prediction(poses: poseMultiArray) else {
-            return nil
-        }
-        return predictions
-    }
-    
-}
 
 
 let jointsOfInterest: [VNHumanBodyPoseObservation.JointName] = [
@@ -101,7 +65,7 @@ func getBodyJointsFor(observation: VNHumanBodyPoseObservation) -> ([VNHumanBodyP
 
 func prepareInputWithObservations(_ observations: [VNHumanBodyPoseObservation]) -> MLMultiArray? {
     let numAvailableFrames = observations.count
-    let observationsNeeded = observationsRequired
+    let observationsNeeded = 45
     var multiArrayBuffer = [MLMultiArray]()
 
     for frameIndex in 0 ..< min(numAvailableFrames, observationsNeeded) {
@@ -208,7 +172,6 @@ enum AppError: Error {
         if let appError = error as? AppError {
             appError.displayInViewController(viewController)
         } else {
-            print("got error:")
             print(error)
         }
     }

@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B1541A3256A09EF00DB2178 /* TripleClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 2B1541A2256A09EF00DB2178 /* TripleClassifier.mlmodel */; };
-		2B1541A8256A179500DB2178 /* IMG_0907.MOV in Resources */ = {isa = PBXBuildFile; fileRef = 2B1541A7256A179500DB2178 /* IMG_0907.MOV */; };
-		2B1541AD256A17AB00DB2178 /* ideal-vball.mov in Resources */ = {isa = PBXBuildFile; fileRef = 2B1541AC256A17AB00DB2178 /* ideal-vball.mov */; };
 		2B29FA28256905E600BB577E /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B29FA27256905E600BB577E /* CameraViewController.xib */; };
 		2B29FA2D2569062D00BB577E /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B29FA2C2569062D00BB577E /* CameraViewController.swift */; };
 		2B29FA322569082F00BB577E /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B29FA312569082F00BB577E /* Common.swift */; };
@@ -50,9 +47,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2B1541A2256A09EF00DB2178 /* TripleClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TripleClassifier.mlmodel; sourceTree = "<group>"; };
-		2B1541A7256A179500DB2178 /* IMG_0907.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = IMG_0907.MOV; sourceTree = "<group>"; };
-		2B1541AC256A17AB00DB2178 /* ideal-vball.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "ideal-vball.mov"; sourceTree = "<group>"; };
 		2B29FA27256905E600BB577E /* CameraViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CameraViewController.xib; sourceTree = "<group>"; };
 		2B29FA2C2569062D00BB577E /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		2B29FA312569082F00BB577E /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
@@ -142,9 +136,6 @@
 		2B9545372568CED60064C069 /* HackWestern */ = {
 			isa = PBXGroup;
 			children = (
-				2B1541AC256A17AB00DB2178 /* ideal-vball.mov */,
-				2B1541A7256A179500DB2178 /* IMG_0907.MOV */,
-				2B1541A2256A09EF00DB2178 /* TripleClassifier.mlmodel */,
 				2B9545382568CED60064C069 /* AppDelegate.swift */,
 				2B95453A2568CED60064C069 /* ViewController.swift */,
 				2B95453C2568CED60064C069 /* Experience.rcproject */,
@@ -301,9 +292,7 @@
 			files = (
 				2B6FAEBA2569BBB0009756A8 /* DetailsViewController.storyboard in Resources */,
 				2B9545452568CED70064C069 /* LaunchScreen.storyboard in Resources */,
-				2B1541A8256A179500DB2178 /* IMG_0907.MOV in Resources */,
 				2B29FA28256905E600BB577E /* CameraViewController.xib in Resources */,
-				2B1541AD256A17AB00DB2178 /* ideal-vball.mov in Resources */,
 				2B29FA4E25691CCF00BB577E /* DetectionViewController.xib in Resources */,
 				2B9545422568CED70064C069 /* Assets.xcassets in Resources */,
 				2B9545402568CED60064C069 /* Main.storyboard in Resources */,
@@ -378,7 +367,6 @@
 				2B29FA4925691CB900BB577E /* DetectionViewController.swift in Sources */,
 				2B6FAEBF2569BBC4009756A8 /* DetailsViewController.swift in Sources */,
 				2B29FA37256908C000BB577E /* VideoOutputViews.swift in Sources */,
-				2B1541A3256A09EF00DB2178 /* TripleClassifier.mlmodel in Sources */,
 				2B29FA4425691BA300BB577E /* BoundingBoxView.swift in Sources */,
 				2B29FA3F25691B8600BB577E /* AnimatingTransitioning.swift in Sources */,
 				2B29FA2D2569062D00BB577E /* CameraViewController.swift in Sources */,

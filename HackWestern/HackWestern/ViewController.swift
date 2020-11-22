@@ -38,18 +38,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var reportView: UIView!
     @IBOutlet weak var chartContainerView: UIView!
     
-    @IBOutlet weak var activityText: UILabel!
     @IBOutlet weak var activityIndicatorContainer: UIStackView!
-    @IBOutlet weak var recordButton: UIButton!
-    
-    private var isRecording: Bool {
-        get {
-            StateBridge.shared.isRecording
-        }
-        set {
-            StateBridge.shared.isRecording = newValue
-        }
-    }
     
     // charts
     lazy var lineChartView: LineChartView = {
@@ -85,6 +74,8 @@ class ViewController: UIViewController {
     
     @objc func updateGraph(sender: UIButton!) {
         let newY = Int.random(in: 1..<100)
+        
+        
     }
     
     
@@ -129,9 +120,32 @@ class ViewController: UIViewController {
 
         lineChartView.width(200)
         lineChartView.height(150)
+        
+//        lineChartView.width(400)
+//        lineChartView.height(200)
         setData()
-
+//        let num = 15
+//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
+//        label.backgroundColor = UIColor(rgb: 0x66f268)
+//        label.textAlignment = .center
+//        label.text = "Rating: " + String(num) + "%"
+//        label.frame.origin = CGPoint(x:50, y:50)
+//        label.layer.cornerRadius = 6
+//        label.layer.masksToBounds = true
+        
+//        view.addSubview(label)
+//        label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+//        label.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
+        
+        
+//        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
+//        button.setTitle("hello", for: .normal)
+//        button.frame.origin = CGPoint(x:100, y: 500)
         detectionViewController = DetectionViewController()
+        
+//        button.backgroundColor = UIColor.red
+//        view.addSubview(button)
+//        button.addTarget(self, action: #selector(updateGraph), for: .touchUpInside)
         presentController(detectionViewController)
 
         bottomView.layer.cornerRadius = 12.0
@@ -174,28 +188,6 @@ class ViewController: UIViewController {
         if let outputDelegate = controllerToPresent as? CameraViewControllerOutputDelegate {
             self.cameraViewController.outputDelegate = outputDelegate
         }
-    }
-    
-    @IBAction func recordTriggered(_ sender: Any) {
-        print("Record triggered")
-
-        isRecording = !isRecording
-
-        if isRecording {
-            recordButton.tintColor = UIColor.systemRed
-            recordButton.setImage(UIImage(systemName: "stop.circle.fill"), for: .normal)
             
-            cameraViewController.startRecording()
-        } else {
-            recordButton.tintColor = UIColor.systemBlue
-            recordButton.setImage(UIImage(systemName: "record.circle"), for: .normal)
-            
-            cameraViewController.stopRecording()
-        }
-        
-    }
-    
-    func update(with result: TripleClassifierOutput) {
-        activityText.text = result.label
     }
 }
