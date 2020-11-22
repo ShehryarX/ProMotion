@@ -244,7 +244,8 @@ class ViewController: UIViewController {
 //            } catch {
 //                print(error)
 //            }
-            
+//            print("Got count: ")
+//            print(StateBridge.shared.observationStore.poseObservations.count)
             let result = StateBridge.shared.observationStore.classifyAction()
             DispatchQueue.main.async {
                 self.activityText.text = result?.label.uppercased()
@@ -259,9 +260,16 @@ class ViewController: UIViewController {
         seekBar.isEnabled = true
     }
     
+    
+    var frame = 0
+    var maxFrames = 0
+    
     func updateSeekBar(_ time: CMTime) {
         seekBar.value = Float(time.seconds)
-        if abs(seekBar.maximumValue - seekBar.value) <= 0.01 {
+        
+        frame = Int(time.seconds / 0.030)
+        
+        if abs(seekBar.maximumValue - seekBar.value) <= 0.005 {
             // re-enable seek
             executeModel()
         }
@@ -270,6 +278,7 @@ class ViewController: UIViewController {
     func configureSeekBar(_ duration: CMTime) {
         seekBar.minimumValue = 0.0
         seekBar.maximumValue = Float(duration.seconds)
+        maxFrames = Int(duration.seconds / 0.030)
     }
     
     @IBAction func onSeekStart(_ sender: Any) {

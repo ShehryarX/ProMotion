@@ -18,7 +18,7 @@ class StateBridge {
 }
 
 let requiredPoseObservations = 300
-let maxPoseObservations = 300
+let maxPoseObservations = 1000
 
 struct ObservationStore {
 
