@@ -14,4 +14,5 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var cellImage: UILabel!
     
     var gradient: [UIColor] = []
+    var image: String = ""
 }

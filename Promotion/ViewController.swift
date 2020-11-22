@@ -118,6 +118,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.cellSubLabel.text = practiceSports[indexPath.item].supportedActions.joined(separator: ", ")
         cell.cellImage.text = practiceSports[indexPath.item].image
         cell.gradient = practiceSports[indexPath.item].gradient
+        cell.image = practiceSports[indexPath.item].image
         
         func gradient(frame:CGRect) -> CAGradientLayer {
                 let layer = CAGradientLayer()
@@ -142,9 +143,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         if segue.destination is DetailPageViewController {
             let title = (sender! as! CollectionViewCell).cellLabel!.text
             let gradient = (sender! as! CollectionViewCell).gradient
+            let image = (sender! as! CollectionViewCell).image
             let vc = segue.destination as? DetailPageViewController
             vc?.title = title
             vc?.gradient = gradient
+            vc?.image = image
         }
     }
 
