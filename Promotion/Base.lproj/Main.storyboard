@@ -92,7 +92,7 @@
                                             <outlet property="cellImage" destination="L5b-dl-iC6" id="vdq-7o-RW6"/>
                                             <outlet property="cellLabel" destination="c7P-mR-thp" id="DEF-Qi-tpR"/>
                                             <outlet property="cellSubLabel" destination="lq8-SD-y3a" id="YyG-OB-4mX"/>
-                                            <segue destination="8sy-L7-LpV" kind="presentation" id="ZC2-Ya-12P"/>
+                                            <segue destination="0au-Oq-xJW" kind="show" id="qvF-vG-fJy"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -332,7 +332,7 @@
             <objects>
                 <viewController id="8sy-L7-LpV" customClass="AddCustomViewController" customModule="Promotion" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5l9-6b-9O3">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="995.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Step 1: Name Your Challenge ✏️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UnT-DH-WQx">
