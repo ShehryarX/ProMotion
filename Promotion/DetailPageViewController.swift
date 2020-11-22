@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVKit
 
 extension UIView {
     @discardableResult
@@ -33,6 +34,7 @@ class DetailPageViewController: UIViewController {
     var gradient: [UIColor] = []
     var selectedSport: String = ""
     var image: String = ""
+
     
     override func viewDidLoad() {
         let green = [#colorLiteral(red: 0.3796315193, green: 0.7958304286, blue: 0.2592983842, alpha: 1),#colorLiteral(red: 0.2060100436, green: 0.6006633639, blue: 0.09944178909, alpha: 1)]
@@ -51,6 +53,14 @@ class DetailPageViewController: UIViewController {
         collectionView.dataSource = self
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is VideoViewController {
+            let title = (sender! as! CheckCollectionViewCell).label!.text!
+            let vc = segue.destination as? VideoViewController
+            vc?.name = title
+        }
+    }
+
 }
 
 var names = ["Rafit", "Shehryar", "Adi", "Shahbaz"]
