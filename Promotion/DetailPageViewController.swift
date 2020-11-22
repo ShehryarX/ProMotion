@@ -28,6 +28,7 @@ class DetailPageViewController: UIViewController {
     
     @IBOutlet weak var practiceButton: UIButton!
     @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var gradient: [UIColor] = []
     var selectedSport: String = ""
@@ -45,6 +46,30 @@ class DetailPageViewController: UIViewController {
         self.submitButton.layer.cornerRadius = 5
         self.submitButton.layer.masksToBounds = true
         self.submitButton.applyGradient(colours: [bluePurple.first!, bluePurple.last!], locations: [0.0, 1.0])
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
+    
+}
+
+var names = ["Rafit", "Shehryar", "Adi", "Shahbaz"]
+var imageNames = ["rj", "sa", "ac", "sm"]
+
+extension DetailPageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print("cellMake")
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "check", for: indexPath) as! CheckCollectionViewCell
+        cell.image.image = UIImage(named: imageNames[indexPath.item])
+        cell.label.text = names[indexPath.item]
+//        cell.layer.cornerRadius = 50
+//        cell.clipsToBounds = true
+        return cell
+    }
+    
     
 }
