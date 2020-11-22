@@ -19,6 +19,7 @@
 		246403C52569D70100D53622 /* DetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246403C42569D70100D53622 /* DetailPageViewController.swift */; };
 		246403D2256A1FFD00D53622 /* CheckCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246403D1256A1FFD00D53622 /* CheckCollectionViewCell.swift */; };
 		246403D7256A3E0800D53622 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246403D6256A3E0800D53622 /* VideoViewController.swift */; };
+		24E124A8256A70A9006CA1AC /* AddCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E124A7256A70A9006CA1AC /* AddCustomViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		246403C42569D70100D53622 /* DetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPageViewController.swift; sourceTree = "<group>"; };
 		246403D1256A1FFD00D53622 /* CheckCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCollectionViewCell.swift; sourceTree = "<group>"; };
 		246403D6256A3E0800D53622 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		24E124A7256A70A9006CA1AC /* AddCustomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				246403C42569D70100D53622 /* DetailPageViewController.swift */,
 				246403D1256A1FFD00D53622 /* CheckCollectionViewCell.swift */,
 				246403D6256A3E0800D53622 /* VideoViewController.swift */,
+				24E124A7256A70A9006CA1AC /* AddCustomViewController.swift */,
 			);
 			path = Promotion;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				246403C52569D70100D53622 /* DetailPageViewController.swift in Sources */,
 				246403D7256A3E0800D53622 /* VideoViewController.swift in Sources */,
 				246403D2256A1FFD00D53622 /* CheckCollectionViewCell.swift in Sources */,
+				24E124A8256A70A9006CA1AC /* AddCustomViewController.swift in Sources */,
 				24150E2E25697F1100FC9509 /* ViewController.swift in Sources */,
 				24150E2A25697F1100FC9509 /* AppDelegate.swift in Sources */,
 				24150E5D256986F900FC9509 /* CollectionViewCell.swift in Sources */,

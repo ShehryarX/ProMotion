@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import ARKit
 
 class PracticeSport {
     var name: String
@@ -47,12 +47,17 @@ func cellRandomBackgroundColors() -> [UIColor] {
     return randomColors!
 }
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ARSCNViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
+        
+    @IBOutlet weak var arView: ARSCNView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        arView.delegate = self
+       
         collectionView.dataSource = self
         collectionView.delegate = self
     }
