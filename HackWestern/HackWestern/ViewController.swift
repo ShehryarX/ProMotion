@@ -7,6 +7,26 @@
 
 import UIKit
 import Vision
+import Charts
+import TinyConstraints
+
+extension UIColor {
+   convenience init(red: Int, green: Int, blue: Int) {
+       assert(red >= 0 && red <= 255, "Invalid red component")
+       assert(green >= 0 && green <= 255, "Invalid green component")
+       assert(blue >= 0 && blue <= 255, "Invalid blue component")
+
+       self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+   }
+
+   convenience init(rgb: Int) {
+       self.init(
+           red: (rgb >> 16) & 0xFF,
+           green: (rgb >> 8) & 0xFF,
+           blue: rgb & 0xFF
+       )
+   }
+}
 
 class ViewController: UIViewController {
         
@@ -14,14 +34,79 @@ class ViewController: UIViewController {
     private var detectionViewController: DetectionViewController!
     private var overlayParentView: UIView!
 
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var reportView: UIView!
+    @IBOutlet weak var chartContainerView: UIView!
+    
+    @IBOutlet weak var activityText: UILabel!
+    @IBOutlet weak var activityIndicatorContainer: UIStackView!
+    @IBOutlet weak var recordButton: UIButton!
+    
+    private var isRecording: Bool {
+        get {
+            StateBridge.shared.isRecording
+        }
+        set {
+            StateBridge.shared.isRecording = newValue
+        }
+    }
+    
+    // charts
+    lazy var lineChartView: LineChartView = {
+        let chartView = LineChartView()
+        chartView.xAxis.drawGridLinesEnabled = false
+        chartView.legend.enabled = false
+        chartView.rightAxis.enabled = false
+        chartView.xAxis.axisMinimum = 0.0
+        chartView.xAxis.axisRange = 10.0
+        
+        chartView.largeContentTitle = "Performance"
+        
+        return chartView;
+    }()
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        print(entry)
+    }
+    
+    let yValues: [ChartDataEntry] = [
+        ChartDataEntry(x: 0.0, y: 10.0),
+        ChartDataEntry(x: 1.0, y: 15.0),
+        ChartDataEntry(x: 2.0, y: 32.0),
+        ChartDataEntry(x: 3.0, y: 41.0),
+        ChartDataEntry(x: 4.0, y: 55.0),
+        ChartDataEntry(x: 5.0, y: 51.0),
+        ChartDataEntry(x: 6.0, y: 76.0),
+        ChartDataEntry(x: 7.0, y: 88.0),
+        ChartDataEntry(x: 8.0, y: 89.0),
+        ChartDataEntry(x: 9.0, y: 93.0),
+        
+    ]
+    
+    @objc func updateGraph(sender: UIButton!) {
+        let newY = Int.random(in: 1..<100)
+    }
+    
+    
+    func setData() {
+        let set1 = LineChartDataSet(entries: yValues)
+        set1.mode = .cubicBezier
+        set1.circleRadius = 4
+        
+        let data = LineChartData(dataSet: set1)
+        data.setDrawValues(false)
+        lineChartView.data = data
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Setup camera view
         cameraViewController = CameraViewController()
         cameraViewController.view.frame = view.bounds
-        
+                
         addChild(cameraViewController)
+        
         cameraViewController.beginAppearanceTransition(true, animated: true)
         view.addSubview(cameraViewController.view)
         cameraViewController.endAppearanceTransition()
@@ -38,9 +123,25 @@ class ViewController: UIViewController {
             overlayParentView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
         
-        detectionViewController = DetectionViewController()
         
+        // Setup chart
+        chartContainerView.addSubview(lineChartView)
+
+        lineChartView.width(200)
+        lineChartView.height(150)
+        setData()
+
+        detectionViewController = DetectionViewController()
         presentController(detectionViewController)
+
+        bottomView.layer.cornerRadius = 12.0
+        view.bringSubviewToFront(bottomView)
+        
+        reportView.layer.cornerRadius = 12.0
+        view.bringSubviewToFront(reportView)
+        
+        activityIndicatorContainer.layer.cornerRadius = 12.0
+        view.bringSubviewToFront(activityIndicatorContainer)
     }
 
     func presentController(_ controllerToPresent: UIViewController) {
@@ -73,5 +174,28 @@ class ViewController: UIViewController {
         if let outputDelegate = controllerToPresent as? CameraViewControllerOutputDelegate {
             self.cameraViewController.outputDelegate = outputDelegate
         }
+    }
+    
+    @IBAction func recordTriggered(_ sender: Any) {
+        print("Record triggered")
+
+        isRecording = !isRecording
+
+        if isRecording {
+            recordButton.tintColor = UIColor.systemRed
+            recordButton.setImage(UIImage(systemName: "stop.circle.fill"), for: .normal)
+            
+            cameraViewController.startRecording()
+        } else {
+            recordButton.tintColor = UIColor.systemBlue
+            recordButton.setImage(UIImage(systemName: "record.circle"), for: .normal)
+            
+            cameraViewController.stopRecording()
+        }
+        
+    }
+    
+    func update(with result: TripleClassifierOutput) {
+        activityText.text = result.label
     }
 }

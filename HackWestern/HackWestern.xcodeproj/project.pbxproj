@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B1541A3256A09EF00DB2178 /* TripleClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 2B1541A2256A09EF00DB2178 /* TripleClassifier.mlmodel */; };
+		2B1541A8256A179500DB2178 /* IMG_0907.MOV in Resources */ = {isa = PBXBuildFile; fileRef = 2B1541A7256A179500DB2178 /* IMG_0907.MOV */; };
+		2B1541AD256A17AB00DB2178 /* ideal-vball.mov in Resources */ = {isa = PBXBuildFile; fileRef = 2B1541AC256A17AB00DB2178 /* ideal-vball.mov */; };
 		2B29FA28256905E600BB577E /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B29FA27256905E600BB577E /* CameraViewController.xib */; };
 		2B29FA2D2569062D00BB577E /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B29FA2C2569062D00BB577E /* CameraViewController.swift */; };
 		2B29FA322569082F00BB577E /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B29FA312569082F00BB577E /* Common.swift */; };
@@ -16,6 +19,8 @@
 		2B29FA4925691CB900BB577E /* DetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B29FA4825691CB900BB577E /* DetectionViewController.swift */; };
 		2B29FA4E25691CCF00BB577E /* DetectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B29FA4D25691CCF00BB577E /* DetectionViewController.xib */; };
 		2B29FA5325691FE000BB577E /* JointSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B29FA5225691FE000BB577E /* JointSegmentView.swift */; };
+		2B6FAEBA2569BBB0009756A8 /* DetailsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B6FAEB92569BBB0009756A8 /* DetailsViewController.storyboard */; };
+		2B6FAEBF2569BBC4009756A8 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6FAEBE2569BBC4009756A8 /* DetailsViewController.swift */; };
 		2B9545392568CED60064C069 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9545382568CED60064C069 /* AppDelegate.swift */; };
 		2B95453B2568CED60064C069 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B95453A2568CED60064C069 /* ViewController.swift */; };
 		2B95453D2568CED60064C069 /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 2B95453C2568CED60064C069 /* Experience.rcproject */; };
@@ -24,6 +29,7 @@
 		2B9545452568CED70064C069 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B9545432568CED70064C069 /* LaunchScreen.storyboard */; };
 		2B9545502568CED70064C069 /* HackWesternTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B95454F2568CED70064C069 /* HackWesternTests.swift */; };
 		2B95455B2568CED70064C069 /* HackWesternUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B95455A2568CED70064C069 /* HackWesternUITests.swift */; };
+		5504DA1F3190132C551A0E14 /* Pods_HackWestern.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659F4ACBDF2E3CE72226FBBF /* Pods_HackWestern.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +50,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B1541A2256A09EF00DB2178 /* TripleClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TripleClassifier.mlmodel; sourceTree = "<group>"; };
+		2B1541A7256A179500DB2178 /* IMG_0907.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = IMG_0907.MOV; sourceTree = "<group>"; };
+		2B1541AC256A17AB00DB2178 /* ideal-vball.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "ideal-vball.mov"; sourceTree = "<group>"; };
 		2B29FA27256905E600BB577E /* CameraViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CameraViewController.xib; sourceTree = "<group>"; };
 		2B29FA2C2569062D00BB577E /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		2B29FA312569082F00BB577E /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
@@ -53,6 +62,8 @@
 		2B29FA4825691CB900BB577E /* DetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionViewController.swift; sourceTree = "<group>"; };
 		2B29FA4D25691CCF00BB577E /* DetectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetectionViewController.xib; sourceTree = "<group>"; };
 		2B29FA5225691FE000BB577E /* JointSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JointSegmentView.swift; sourceTree = "<group>"; };
+		2B6FAEB92569BBB0009756A8 /* DetailsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailsViewController.storyboard; sourceTree = "<group>"; };
+		2B6FAEBE2569BBC4009756A8 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		2B9545352568CED60064C069 /* HackWestern.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackWestern.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B9545382568CED60064C069 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B95453A2568CED60064C069 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +78,9 @@
 		2B9545562568CED70064C069 /* HackWesternUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HackWesternUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B95455A2568CED70064C069 /* HackWesternUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackWesternUITests.swift; sourceTree = "<group>"; };
 		2B95455C2568CED70064C069 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		659F4ACBDF2E3CE72226FBBF /* Pods_HackWestern.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HackWestern.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC86C95FE0328F633FEB9F84 /* Pods-HackWestern.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HackWestern.debug.xcconfig"; path = "Target Support Files/Pods-HackWestern/Pods-HackWestern.debug.xcconfig"; sourceTree = "<group>"; };
+		F602A6AAF7DBA959E742B6AF /* Pods-HackWestern.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HackWestern.release.xcconfig"; path = "Target Support Files/Pods-HackWestern/Pods-HackWestern.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5504DA1F3190132C551A0E14 /* Pods_HackWestern.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +109,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1BDA5703DE15E52869EF4916 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				659F4ACBDF2E3CE72226FBBF /* Pods_HackWestern.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2B95452C2568CED60064C069 = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +124,8 @@
 				2B95454E2568CED70064C069 /* HackWesternTests */,
 				2B9545592568CED70064C069 /* HackWesternUITests */,
 				2B9545362568CED60064C069 /* Products */,
+				EF08B7B4D8C852B6F26D017C /* Pods */,
+				1BDA5703DE15E52869EF4916 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,6 +142,9 @@
 		2B9545372568CED60064C069 /* HackWestern */ = {
 			isa = PBXGroup;
 			children = (
+				2B1541AC256A17AB00DB2178 /* ideal-vball.mov */,
+				2B1541A7256A179500DB2178 /* IMG_0907.MOV */,
+				2B1541A2256A09EF00DB2178 /* TripleClassifier.mlmodel */,
 				2B9545382568CED60064C069 /* AppDelegate.swift */,
 				2B95453A2568CED60064C069 /* ViewController.swift */,
 				2B95453C2568CED60064C069 /* Experience.rcproject */,
@@ -133,6 +161,8 @@
 				2B29FA4825691CB900BB577E /* DetectionViewController.swift */,
 				2B29FA4D25691CCF00BB577E /* DetectionViewController.xib */,
 				2B29FA5225691FE000BB577E /* JointSegmentView.swift */,
+				2B6FAEB92569BBB0009756A8 /* DetailsViewController.storyboard */,
+				2B6FAEBE2569BBC4009756A8 /* DetailsViewController.swift */,
 			);
 			path = HackWestern;
 			sourceTree = "<group>";
@@ -155,6 +185,15 @@
 			path = HackWesternUITests;
 			sourceTree = "<group>";
 		};
+		EF08B7B4D8C852B6F26D017C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BC86C95FE0328F633FEB9F84 /* Pods-HackWestern.debug.xcconfig */,
+				F602A6AAF7DBA959E742B6AF /* Pods-HackWestern.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -162,9 +201,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2B95455F2568CED70064C069 /* Build configuration list for PBXNativeTarget "HackWestern" */;
 			buildPhases = (
+				0661B025C009BEA5A2439BC8 /* [CP] Check Pods Manifest.lock */,
 				2B9545312568CED60064C069 /* Sources */,
 				2B9545322568CED60064C069 /* Frameworks */,
 				2B9545332568CED60064C069 /* Resources */,
+				574E94BCB236ABA9207DFE6B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -258,8 +299,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B6FAEBA2569BBB0009756A8 /* DetailsViewController.storyboard in Resources */,
 				2B9545452568CED70064C069 /* LaunchScreen.storyboard in Resources */,
+				2B1541A8256A179500DB2178 /* IMG_0907.MOV in Resources */,
 				2B29FA28256905E600BB577E /* CameraViewController.xib in Resources */,
+				2B1541AD256A17AB00DB2178 /* ideal-vball.mov in Resources */,
 				2B29FA4E25691CCF00BB577E /* DetectionViewController.xib in Resources */,
 				2B9545422568CED70064C069 /* Assets.xcassets in Resources */,
 				2B9545402568CED60064C069 /* Main.storyboard in Resources */,
@@ -282,6 +326,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0661B025C009BEA5A2439BC8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HackWestern-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		574E94BCB236ABA9207DFE6B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HackWestern/Pods-HackWestern-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HackWestern/Pods-HackWestern-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HackWestern/Pods-HackWestern-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2B9545312568CED60064C069 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -290,7 +376,9 @@
 				2B95453B2568CED60064C069 /* ViewController.swift in Sources */,
 				2B29FA5325691FE000BB577E /* JointSegmentView.swift in Sources */,
 				2B29FA4925691CB900BB577E /* DetectionViewController.swift in Sources */,
+				2B6FAEBF2569BBC4009756A8 /* DetailsViewController.swift in Sources */,
 				2B29FA37256908C000BB577E /* VideoOutputViews.swift in Sources */,
+				2B1541A3256A09EF00DB2178 /* TripleClassifier.mlmodel in Sources */,
 				2B29FA4425691BA300BB577E /* BoundingBoxView.swift in Sources */,
 				2B29FA3F25691B8600BB577E /* AnimatingTransitioning.swift in Sources */,
 				2B29FA2D2569062D00BB577E /* CameraViewController.swift in Sources */,
@@ -469,6 +557,7 @@
 		};
 		2B9545602568CED70064C069 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC86C95FE0328F633FEB9F84 /* Pods-HackWestern.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -488,6 +577,7 @@
 		};
 		2B9545612568CED70064C069 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F602A6AAF7DBA959E742B6AF /* Pods-HackWestern.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
