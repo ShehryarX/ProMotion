@@ -28,15 +28,21 @@ extension UIView {
 class DetailPageViewController: UIViewController {
     
     @IBOutlet weak var practiceButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     
     var gradient: [UIColor] = []
-    var selectedSport: String = ""
+    var titl: String = ""
     var image: String = ""
-
+    var desc: String = ""
     
     override func viewDidLoad() {
+        self.titleLabel.text = title! + " " + image
+        self.subtitleLabel.text = desc
+
+        
         let green = [#colorLiteral(red: 0.3796315193, green: 0.7958304286, blue: 0.2592983842, alpha: 1),#colorLiteral(red: 0.2060100436, green: 0.6006633639, blue: 0.09944178909, alpha: 1)]
         let bluePurple = [#colorLiteral(red: 0.4613699913, green: 0.3118675947, blue: 0.8906354308, alpha: 1),#colorLiteral(red: 0.3018293083, green: 0.1458326578, blue: 0.7334778905, alpha: 1)]
         

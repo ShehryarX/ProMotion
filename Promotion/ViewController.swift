@@ -60,7 +60,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     let practiceSports: [PracticeSport] = [
         PracticeSport(
             name: "Create",
-            supportedActions: ["Custom move"],
+            supportedActions: ["Custom motion"],
             image: "👍",
             gradient: cellRandomBackgroundColors()
         ),
@@ -72,37 +72,37 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         ),
         PracticeSport(
             name: "Soccer",
-            supportedActions: ["Kick"],
+            supportedActions: ["Free Kick", "Throw In"],
             image: "⚽",
             gradient: cellRandomBackgroundColors()
         ),
         PracticeSport(
             name: "Voleyball",
-            supportedActions: ["Jump Shot", "Free Throw"],
+            supportedActions: ["Spike", "Volley"],
             image: "🏐",
             gradient: cellRandomBackgroundColors()
         ),
         PracticeSport(
             name: "Baseball",
-            supportedActions: ["Kick"],
+            supportedActions: ["Swing", "Pitch"],
             image: "⚾",
             gradient: cellRandomBackgroundColors()
         ),
         PracticeSport(
             name: "Bowling",
-            supportedActions: ["Jump Shot", "Free Throw"],
+            supportedActions: ["Bowl"],
             image: "🎳",
             gradient: cellRandomBackgroundColors()
         ),
         PracticeSport(
             name: "Hockey",
-            supportedActions: ["Kick"],
+            supportedActions: ["Shot", "Dribble"],
             image: "🏒",
             gradient: cellRandomBackgroundColors()
         ),
         PracticeSport(
             name: "Golf",
-            supportedActions: ["Jump Shot", "Free Throw"],
+            supportedActions: ["Swing"],
             image: "⛳",
             gradient: cellRandomBackgroundColors()
         )
@@ -141,13 +141,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is DetailPageViewController {
-            let title = (sender! as! CollectionViewCell).cellLabel!.text
+            var title = (sender! as! CollectionViewCell).cellLabel!.text
             let gradient = (sender! as! CollectionViewCell).gradient
+            let subLabel = (sender! as! CollectionViewCell).cellSubLabel!.text
             let image = (sender! as! CollectionViewCell).image
             let vc = segue.destination as? DetailPageViewController
             vc?.title = title
-            vc?.gradient = gradient
+            title!.append(" ")
+            title!.append(image)
+            vc?.titl = title!
             vc?.image = image
+            vc?.desc = subLabel!
+            vc?.gradient = gradient
         }
     }
 
