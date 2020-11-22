@@ -83,6 +83,7 @@ class BoundingBoxView: UIView, AnimatedTransitioning {
         }
         let path = UIBezierPath(cgPath: visionPath)
         path.apply(CGAffineTransform.verticalFlip)
+        path.apply(CGAffineTransform(rotationAngle: 90.0 * (.pi / 180.0)))
         path.apply(CGAffineTransform(scaleX: bounds.width, y: bounds.height))
         pathLayer.path = path.cgPath
     }

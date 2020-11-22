@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Details View Controller-->
+        <scene sceneID="on6-0e-Pbw">
+            <objects>
+                <viewController id="VaR-Ru-CdF" customClass="DetailsViewController" customModule="HackWestern" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nJp-7n-cCL">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1QP-o0-XwE">
+                                <rect key="frame" x="0.0" y="1218" width="1024" height="128"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="aJE-pv-ZdE">
+                                        <rect key="frame" x="32" y="0.0" width="960" height="128"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7eq-LJ-bb8">
+                                                <rect key="frame" x="0.0" y="48" width="32" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="Krx-wI-ag6"/>
+                                                    <constraint firstAttribute="width" constant="32" id="lCQ-Zo-Lnk"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <state key="normal">
+                                                    <imageReference key="image" image="record.circle" catalog="system" symbolScale="large"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mqx-qk-g50">
+                                                <rect key="frame" x="64" y="48" width="32" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="32" id="9KY-1b-wab"/>
+                                                    <constraint firstAttribute="height" constant="32" id="Y8S-zU-3ya"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <state key="normal">
+                                                    <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
+                                                </state>
+                                            </button>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Vun-gf-KNN">
+                                                <rect key="frame" x="126" y="49" width="836" height="31"/>
+                                            </slider>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="6Y8-ZK-n4x"/>
+                                    <constraint firstAttribute="bottom" secondItem="aJE-pv-ZdE" secondAttribute="bottom" id="NLf-t5-xmE"/>
+                                    <constraint firstAttribute="trailing" secondItem="aJE-pv-ZdE" secondAttribute="trailing" constant="32" id="YG3-2E-zph"/>
+                                    <constraint firstItem="aJE-pv-ZdE" firstAttribute="leading" secondItem="1QP-o0-XwE" secondAttribute="leading" constant="32" id="ksJ-fJ-t1u"/>
+                                    <constraint firstItem="aJE-pv-ZdE" firstAttribute="top" secondItem="1QP-o0-XwE" secondAttribute="top" id="syo-U5-THL"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="xm2-0B-cHt"/>
+                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                        <constraints>
+                            <constraint firstItem="xm2-0B-cHt" firstAttribute="trailing" secondItem="1QP-o0-XwE" secondAttribute="trailing" id="9Jz-hy-UOq"/>
+                            <constraint firstItem="xm2-0B-cHt" firstAttribute="bottom" secondItem="1QP-o0-XwE" secondAttribute="bottom" id="LdF-kE-oFC"/>
+                            <constraint firstItem="1QP-o0-XwE" firstAttribute="leading" secondItem="xm2-0B-cHt" secondAttribute="leading" id="bWN-uY-oxg"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J2O-YI-sNN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-391" y="68"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="play.fill" catalog="system" width="116" height="128"/>
+        <image name="record.circle" catalog="system" width="128" height="121"/>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

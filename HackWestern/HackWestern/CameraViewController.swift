@@ -120,7 +120,11 @@ class CameraViewController: UIViewController {
     // Vision coordinates have origin at the bottom left corner and are normalized from 0 to 1 for both dimensions.
     //
     func viewRectForVisionRect(_ visionRect: CGRect) -> CGRect {
-        let flippedRect = visionRect.applying(CGAffineTransform.verticalFlip)
+        let flippedRect = visionRect.applying(CGAffineTransform.verticalFlip).applying(
+            CGAffineTransform.init(translationX: 0.5, y: 0.5)
+                .rotated(by: -90.0 * (.pi / 180.0))
+                .translatedBy(x: -0.5, y: -0.5)
+        )
         let viewRect: CGRect
         if cameraFeedSession != nil {
             viewRect = cameraFeedView.viewRectConverted(fromNormalizedContentsRect: flippedRect)

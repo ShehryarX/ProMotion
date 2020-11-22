@@ -1,0 +1,6 @@
+framework module Pods_HackWestern {
+  umbrella header "Pods-HackWestern-umbrella.h"
+
+  export *
+  module * { export * }
+}
