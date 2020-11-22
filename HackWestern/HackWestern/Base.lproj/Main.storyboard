@@ -153,6 +153,7 @@
                         <outlet property="chartContainerView" destination="hlO-HT-uiZ" id="D5h-ho-wsX"/>
                         <outlet property="loadingIndicator" destination="iHw-fo-UQ0" id="esT-gA-faM"/>
                         <outlet property="playButton" destination="jRv-Pj-3Hx" id="nwp-47-BIc"/>
+                        <outlet property="ratingLabel" destination="zUd-a9-IlN" id="Qym-tM-0vp"/>
                         <outlet property="recordButton" destination="Dbd-sc-MwU" id="Ojd-JM-1tZ"/>
                         <outlet property="reportView" destination="ggO-fd-frY" id="0DD-8D-eMc"/>
                         <outlet property="seekBar" destination="isI-m9-ECl" id="A3b-cV-el3"/>

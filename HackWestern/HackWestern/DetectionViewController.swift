@@ -27,6 +27,10 @@ class DetectionViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         root = self.parent as! ViewController
+        
+        jointSegmentView.errorReporter = { absoluteError in
+            self.root.reportError(absoluteError)
+        }
     }
     
     func setUIElements() {
@@ -36,7 +40,6 @@ class DetectionViewController: UIViewController {
 
         view.addSubview(playerBoundingBox)
         view.addSubview(jointSegmentView)
-
     }
     
     
@@ -85,8 +88,8 @@ extension DetectionViewController: CameraViewControllerOutputDelegate {
             }
 
         do {
-            let offset = root.maxFrames - root.frame
-            let index = min(max(root.frame - offset, 0), 99)
+//            let offset = root.maxFrames - root.frame
+            let index = min(max(root.frame, 0), 99)
 
             try visionHandler.perform([detectPlayerRequest])
             let obs = detectPlayerRequest.results?.first

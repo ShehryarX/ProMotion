@@ -45,6 +45,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var activityText: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
     
     private var isRecording: Bool {
         get {
@@ -62,7 +63,10 @@ class ViewController: UIViewController {
         chartView.legend.enabled = false
         chartView.rightAxis.enabled = false
         chartView.xAxis.axisMinimum = 0.0
-        chartView.xAxis.axisRange = 10.0
+        chartView.xAxis.axisRange = 100.0
+        
+        chartView.leftAxis.axisMinimum = 0.0
+        chartView.leftAxis.axisMaximum = 1.0
         
         chartView.largeContentTitle = "Performance"
         
@@ -73,35 +77,22 @@ class ViewController: UIViewController {
         print(entry)
     }
     
-    let yValues: [ChartDataEntry] = [
-        ChartDataEntry(x: 0.0, y: 10.0),
-        ChartDataEntry(x: 1.0, y: 15.0),
-        ChartDataEntry(x: 2.0, y: 32.0),
-        ChartDataEntry(x: 3.0, y: 41.0),
-        ChartDataEntry(x: 4.0, y: 55.0),
-        ChartDataEntry(x: 5.0, y: 51.0),
-        ChartDataEntry(x: 6.0, y: 76.0),
-        ChartDataEntry(x: 7.0, y: 88.0),
-        ChartDataEntry(x: 8.0, y: 89.0),
-        ChartDataEntry(x: 9.0, y: 93.0),
-        
-    ]
-    
-    @objc func updateGraph(sender: UIButton!) {
-        let newY = Int.random(in: 1..<100)
-        
-        
-    }
-    
+    var yValues: [ChartDataEntry] = []
+    var averageError: [Float] = []
     
     func setData() {
         let set1 = LineChartDataSet(entries: yValues)
+        set1.drawCirclesEnabled = false
         set1.mode = .cubicBezier
         set1.circleRadius = 4
         
         let data = LineChartData(dataSet: set1)
         data.setDrawValues(false)
         lineChartView.data = data
+        
+        let error = averageError.reduce(0.0, +) / Float(averageError.count)
+        
+        ratingLabel.text = String(format: "%2f", error)
     }
     
     func loadIdeals() {
@@ -244,8 +235,8 @@ class ViewController: UIViewController {
 //            } catch {
 //                print(error)
 //            }
-//            print("Got count: ")
-//            print(StateBridge.shared.observationStore.poseObservations.count)
+            print("Got count: ")
+            print(StateBridge.shared.observationStore.poseObservations.count)
             let result = StateBridge.shared.observationStore.classifyAction()
             DispatchQueue.main.async {
                 self.activityText.text = result?.label.uppercased()
@@ -267,7 +258,10 @@ class ViewController: UIViewController {
     func updateSeekBar(_ time: CMTime) {
         seekBar.value = Float(time.seconds)
         
-        frame = Int(time.seconds / 0.030)
+        let frac = Float(time.seconds) / seekBar.maximumValue
+        
+//        frame = Int(time.seconds / 0.030)
+        frame = Int(frac * 100.0)
         
         if abs(seekBar.maximumValue - seekBar.value) <= 0.005 {
             // re-enable seek
@@ -278,12 +272,13 @@ class ViewController: UIViewController {
     func configureSeekBar(_ duration: CMTime) {
         seekBar.minimumValue = 0.0
         seekBar.maximumValue = Float(duration.seconds)
-        maxFrames = Int(duration.seconds / 0.030)
+//        maxFrames = Int(duration.seconds / 0.030)
+        maxFrames = 100
     }
     
     @IBAction func onSeekStart(_ sender: Any) {
         cameraViewController.markPlayState()
-        cameraViewController.pause()
+        cameraViewController.pause()        
     }
     
     @IBAction func onSeek(_ sender: Any) {
@@ -309,6 +304,19 @@ class ViewController: UIViewController {
         activityText.isHidden = true
         loadingIndicator.isHidden = false
         
+        clearChartData()
     }
     
+    func clearChartData() {
+        yValues.removeAll()
+        averageError.removeAll()
+    }
+    
+    func reportError(_ absoluteError: Float) {
+        // Add at frame time, mapping to relative error
+        let mappedPercent = 1.0 - (absoluteError / 500.0)
+        yValues.append(ChartDataEntry(x: Double(frame), y: Double(mappedPercent)))
+        averageError.append(mappedPercent)
+        setData()
+    }
 }

@@ -48,9 +48,9 @@ class CameraViewController: UIViewController {
         _filename = "recorded"
         let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename!).mov")
 
-//        startReadingAsset(AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "ideal-vball", ofType: "mov")!)))
+        startReadingAsset(AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "ideal-vball", ofType: "mov")!)))
 
-        startReadingAsset(AVAsset(url: videoPath))
+//        startReadingAsset(AVAsset(url: videoPath))
     }
     
     override func viewDidLoad() {
