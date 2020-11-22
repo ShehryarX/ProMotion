@@ -39,6 +39,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var chartContainerView: UIView!
     
     @IBOutlet weak var activityIndicatorContainer: UIStackView!
+    @IBOutlet weak var recordButton: UIButton!
+    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var seekBar: UISlider!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var activityText: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
+    
+    private var isRecording: Bool {
+        get {
+            StateBridge.shared.isRecording
+        }
+        set {
+            StateBridge.shared.isRecording = newValue
+        }
+    }
     
     // charts
     lazy var lineChartView: LineChartView = {
@@ -47,7 +63,10 @@ class ViewController: UIViewController {
         chartView.legend.enabled = false
         chartView.rightAxis.enabled = false
         chartView.xAxis.axisMinimum = 0.0
-        chartView.xAxis.axisRange = 10.0
+        chartView.xAxis.axisRange = 100.0
+        
+        chartView.leftAxis.axisMinimum = 0.0
+        chartView.leftAxis.axisMaximum = 1.0
         
         chartView.largeContentTitle = "Performance"
         
@@ -58,35 +77,36 @@ class ViewController: UIViewController {
         print(entry)
     }
     
-    let yValues: [ChartDataEntry] = [
-        ChartDataEntry(x: 0.0, y: 10.0),
-        ChartDataEntry(x: 1.0, y: 15.0),
-        ChartDataEntry(x: 2.0, y: 32.0),
-        ChartDataEntry(x: 3.0, y: 41.0),
-        ChartDataEntry(x: 4.0, y: 55.0),
-        ChartDataEntry(x: 5.0, y: 51.0),
-        ChartDataEntry(x: 6.0, y: 76.0),
-        ChartDataEntry(x: 7.0, y: 88.0),
-        ChartDataEntry(x: 8.0, y: 89.0),
-        ChartDataEntry(x: 9.0, y: 93.0),
-        
-    ]
-    
-    @objc func updateGraph(sender: UIButton!) {
-        let newY = Int.random(in: 1..<100)
-        
-        
-    }
-    
+    var yValues: [ChartDataEntry] = []
+    var averageError: [Float] = []
     
     func setData() {
         let set1 = LineChartDataSet(entries: yValues)
+        set1.drawCirclesEnabled = false
         set1.mode = .cubicBezier
         set1.circleRadius = 4
         
         let data = LineChartData(dataSet: set1)
         data.setDrawValues(false)
         lineChartView.data = data
+        
+        let error = averageError.reduce(0.0, +) / Float(averageError.count)
+        
+        ratingLabel.text = String(format: "%2f", error)
+    }
+    
+    func loadIdeals() {
+        let idealVballPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("vball-ideal.bin")
+
+        do {
+            if let data = FileManager.default.contents(atPath: idealVballPath.path) {
+                if let idealVball = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [VNHumanBodyPoseObservation] {
+                    StateBridge.shared.observationStore.idealVball = idealVball
+                }
+            }
+        } catch {
+            print(error)
+        }
     }
 
     override func viewDidLoad() {
@@ -121,31 +141,9 @@ class ViewController: UIViewController {
         lineChartView.width(200)
         lineChartView.height(150)
         
-//        lineChartView.width(400)
-//        lineChartView.height(200)
         setData()
-//        let num = 15
-//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
-//        label.backgroundColor = UIColor(rgb: 0x66f268)
-//        label.textAlignment = .center
-//        label.text = "Rating: " + String(num) + "%"
-//        label.frame.origin = CGPoint(x:50, y:50)
-//        label.layer.cornerRadius = 6
-//        label.layer.masksToBounds = true
-        
-//        view.addSubview(label)
-//        label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-//        label.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
-        
-        
-//        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
-//        button.setTitle("hello", for: .normal)
-//        button.frame.origin = CGPoint(x:100, y: 500)
         detectionViewController = DetectionViewController()
         
-//        button.backgroundColor = UIColor.red
-//        view.addSubview(button)
-//        button.addTarget(self, action: #selector(updateGraph), for: .touchUpInside)
         presentController(detectionViewController)
 
         bottomView.layer.cornerRadius = 12.0
@@ -156,6 +154,16 @@ class ViewController: UIViewController {
         
         activityIndicatorContainer.layer.cornerRadius = 12.0
         view.bringSubviewToFront(activityIndicatorContainer)
+        
+        seekBar.isEnabled = true
+        playButton.isEnabled = true
+        
+        loadingIndicator.startAnimating()
+        loadingIndicator.isHidden = true
+        
+        DispatchQueue.global().async {
+            self.loadIdeals()
+        }
     }
 
     func presentController(_ controllerToPresent: UIViewController) {
@@ -189,5 +197,126 @@ class ViewController: UIViewController {
             self.cameraViewController.outputDelegate = outputDelegate
         }
             
+    }
+    
+    @IBAction func recordTriggered(_ sender: Any) {
+        isRecording = !isRecording
+
+        if isRecording {
+            recordButton.tintColor = UIColor.systemRed
+            recordButton.setImage(UIImage(systemName: "stop.circle.fill"), for: .normal)
+
+            cameraViewController.startRecording()
+        } else {
+            recordButton.tintColor = UIColor.systemBlue
+            recordButton.setImage(UIImage(systemName: "record.circle"), for: .normal)
+
+
+            cameraViewController.stopRecording()
+        }
+    }
+    
+    func executeModel() {
+        DispatchQueue.global(qos: .userInitiated).async {
+                        
+//            do {
+//            if FileManager.default.fileExists(atPath: idealVballPath.path) {
+//                try FileManager.default.removeItem(at: idealVballPath)
+//            }
+//            } catch {
+//                print(error)
+//            }
+//
+//            do {
+//                let arr = StateBridge.shared.observationStore.poseObservations
+//                    let data = try NSKeyedArchiver.archivedData(withRootObject: arr, requiringSecureCoding: false)
+//                    try data.write(to: idealVballPath)
+//                    print("wrote!")
+//            } catch {
+//                print(error)
+//            }
+            print("Got count: ")
+            print(StateBridge.shared.observationStore.poseObservations.count)
+            let result = StateBridge.shared.observationStore.classifyAction()
+            DispatchQueue.main.async {
+                self.activityText.text = result?.label.uppercased()
+                self.stopLoadingUI()
+            }
+        }
+    }
+    
+    func stopLoadingUI () {
+        loadingIndicator.isHidden = true
+        activityText.isHidden = false
+        seekBar.isEnabled = true
+    }
+    
+    
+    var frame = 0
+    var maxFrames = 0
+    
+    func updateSeekBar(_ time: CMTime) {
+        seekBar.value = Float(time.seconds)
+        
+        let frac = Float(time.seconds) / seekBar.maximumValue
+        
+//        frame = Int(time.seconds / 0.030)
+        frame = Int(frac * 100.0)
+        
+        if abs(seekBar.maximumValue - seekBar.value) <= 0.005 {
+            // re-enable seek
+            executeModel()
+        }
+    }
+    
+    func configureSeekBar(_ duration: CMTime) {
+        seekBar.minimumValue = 0.0
+        seekBar.maximumValue = Float(duration.seconds)
+//        maxFrames = Int(duration.seconds / 0.030)
+        maxFrames = 100
+    }
+    
+    @IBAction func onSeekStart(_ sender: Any) {
+        cameraViewController.markPlayState()
+        cameraViewController.pause()        
+    }
+    
+    @IBAction func onSeek(_ sender: Any) {
+        cameraViewController.seek(seekBar.value)
+    }
+    
+    @IBAction func onSeekEnd(_ sender: Any) {
+        cameraViewController.playIfWasPaused()
+    }
+ 
+    func onPlayStateChange(_ isPlaying: Bool) {
+        if(!isPlaying) {
+            
+        }
+    }
+    
+    func onRecordFinished() {
+        // Clear exisiting poses, and gather new ones
+        StateBridge.shared.observationStore.resetObservations();
+        print("on record finished")
+    // disable seek till at the end to gather our observations
+        seekBar.isEnabled = false
+        activityText.isHidden = true
+        loadingIndicator.isHidden = false
+        
+        clearChartData()
+    }
+    
+    func clearChartData() {
+        yValues.removeAll()
+        averageError.removeAll()
+    }
+    
+    func reportError(_ absoluteError: Float) {
+        // Add at frame time, mapping to relative error
+        let mappedPercent = 1.0 - (absoluteError / 500.0)
+        yValues.append(ChartDataEntry(x: Double(frame), y: Double(mappedPercent)))
+        averageError.append(mappedPercent)
+        setData()
     }
 }

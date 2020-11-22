@@ -8,6 +8,44 @@ This is a collection of common data types, constants and helper functions used i
 import UIKit
 import Vision
 
+class StateBridge {
+    
+    static var shared = StateBridge()
+    
+    var isRecording = false
+    
+    var observationStore = ObservationStore()
+}
+
+let requiredPoseObservations = 300
+let maxPoseObservations = 1000
+
+struct ObservationStore {
+
+    var poseObservations = [VNHumanBodyPoseObservation]()
+    var idealVball = [VNHumanBodyPoseObservation]()
+    
+    mutating func storeObservation(_ observation: VNHumanBodyPoseObservation) {
+        if poseObservations.count >= maxPoseObservations {
+            poseObservations.removeFirst()
+        }
+        poseObservations.append(observation)
+    }
+
+    mutating func resetObservations() {
+        poseObservations = []
+    }
+
+    mutating func classifyAction() -> TripleClassifierOutput? {
+        guard let actionClassifier = try? TripleClassifier(configuration: MLModelConfiguration()),
+              let poseMultiArray = prepareInputWithObservations(poseObservations),
+              let predictions = try? actionClassifier.prediction(poses: poseMultiArray) else {
+            return nil
+        }
+        return predictions
+    }
+
+}
 
 let jointsOfInterest: [VNHumanBodyPoseObservation.JointName] = [
     .rightWrist,
@@ -65,7 +103,7 @@ func getBodyJointsFor(observation: VNHumanBodyPoseObservation) -> ([VNHumanBodyP
 
 func prepareInputWithObservations(_ observations: [VNHumanBodyPoseObservation]) -> MLMultiArray? {
     let numAvailableFrames = observations.count
-    let observationsNeeded = 45
+    let observationsNeeded = requiredPoseObservations
     var multiArrayBuffer = [MLMultiArray]()
 
     for frameIndex in 0 ..< min(numAvailableFrames, observationsNeeded) {

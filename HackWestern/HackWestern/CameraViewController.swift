@@ -29,12 +29,36 @@ class CameraViewController: UIViewController {
     private let videoFileReadingQueue = DispatchQueue(label: "VideoFileReading", qos: .userInteractive)
     private var videoFileBufferOrientation = CGImagePropertyOrientation.up
     private var videoFileFrameDuration = CMTime.invalid
+    
+    
+    var videoPlayer: AVPlayer? = nil
 
+    var _filename: String!
+    
+    private var isRecording: Bool {
+        get {
+            StateBridge.shared.isRecording
+        }
+        set {
+            StateBridge.shared.isRecording = newValue
+        }
+    }
+    
+    func loadRecordedVideo() {
+        _filename = "recorded"
+        let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename!).mov")
+
+        startReadingAsset(AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "ideal-vball", ofType: "mov")!)))
+
+//        startReadingAsset(AVAsset(url: videoPath))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         do {
             try setupAVSession()
+//            startReadingAsset(AVAsset(url: URL(fileURLWithPath: Bundle.main.path(forResource: "ideal-vball", ofType: "mov")!)))
         } catch {
             AppError.display(error, inViewController: self)
         }
@@ -47,8 +71,12 @@ class CameraViewController: UIViewController {
         // Invalidate display link so it's removed from run loop
         displayLink?.invalidate()
     }
-    
+        
     func setupAVSession() throws {
+        shouldNotifyObserver = true
+        removeListeners()
+        videoPlayer = nil
+        
         // Create device discovery session for a wide angle camera
         let wideAngle = AVCaptureDevice.DeviceType.builtInWideAngleCamera
         let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [wideAngle], mediaType: .video, position: .unspecified)
@@ -89,6 +117,7 @@ class CameraViewController: UIViewController {
         } else {
             throw AppError.captureSessionSetup(reason: "Could not add video data output to the session")
         }
+                
         let captureConnection = dataOutput.connection(with: .video)
         captureConnection?.preferredVideoStabilizationMode = .standard
         // Always process the frames
@@ -165,7 +194,62 @@ class CameraViewController: UIViewController {
         ])
     }
     
+    private var playerItem: AVPlayerItem? = nil
+    
+    func addListeners() {
+        videoPlayer?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.03, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), queue: .main) {
+            [weak self] time in
+            let root = self?.parent as? ViewController
+            root?.updateSeekBar(time)
+            
+            if let item = self?.playerItem {
+                
+                let dur = item.duration.seconds
+                
+                if dur > 0.0 {
+                    root?.configureSeekBar(item.duration)
+                }
+            }
+            
+        }
+    }
+    
+    func removeListeners() {
+    }
+    
+    var isPlaying = false
+    var wasPlaying = false
+    
+    func markPlayState() {
+        wasPlaying = isPlaying
+    }
+    
+    func play() {
+        videoPlayer?.play()
+        isPlaying = true
+        
+        (parent as? ViewController)?.onPlayStateChange(isPlaying)
+    }
+    
+    func pause() {
+        videoPlayer?.pause()
+        isPlaying = false
+        
+        (parent as? ViewController)?.onPlayStateChange(isPlaying)
+    }
+    
+    func seek(_ seconds: Float) {
+        videoPlayer?.seek(to: CMTime(seconds: Double(seconds), preferredTimescale: CMTimeScale(NSEC_PER_SEC)))
+    }
+    
+    func playIfWasPaused() {
+        if wasPlaying {
+            play()
+        }
+    }
+        
     func startReadingAsset(_ asset: AVAsset) {
+        shouldNotifyObserver = false
         videoRenderView = VideoRenderView(frame: view.bounds)
         setupVideoOutputView(videoRenderView)
         
@@ -180,15 +264,23 @@ class CameraViewController: UIViewController {
             return
         }
         
-        let playerItem = AVPlayerItem(asset: asset)
-        let player = AVPlayer(playerItem: playerItem)
+        let item = AVPlayerItem(asset: asset)
+        let player = AVPlayer(playerItem: item)
         let settings = [
             String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_420YpCbCr8BiPlanarFullRange
         ]
         let output = AVPlayerItemVideoOutput(pixelBufferAttributes: settings)
-        playerItem.add(output)
+        item.add(output)
+        
+        playerItem = item
         player.actionAtItemEnd = .pause
         player.play()
+        isPlaying = true
+        wasPlaying = true
+        
+        videoPlayer = player
+
+        addListeners()        
 
         self.displayLink = displayLink
         self.playerItemOutput = output
@@ -251,15 +343,109 @@ class CameraViewController: UIViewController {
             }
         }
     }
+        
+    func startRecording() {
+        do {
+            _captureState = .start
+            try? setupAVSession()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func stopRecording() {
+        _captureState = .end
+        removeListeners()
+    }
+    
+    private enum _CaptureState {
+        case idle, start, capturing, end
+    }
+    private var _captureState = _CaptureState.idle
+    
+    private var _assetWriter: AVAssetWriter!
+    private var _assetWriterInput: AVAssetWriterInput!
+    private var _adapter: AVAssetWriterInputPixelBufferAdaptor!
+    private var _time: Double = 0.0
+    
+    private var shouldNotifyObserver = true
 }
 
 
 extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        outputDelegate?.cameraViewController(self, didReceiveBuffer: sampleBuffer, orientation: .right)
-        
-        DispatchQueue.main.async {
-            // Camera setup stage has been reached
+        if shouldNotifyObserver {
+            outputDelegate?.cameraViewController(self, didReceiveBuffer: sampleBuffer, orientation: .right)
         }
+        
+        // Also write out
+        let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer).seconds
+                switch _captureState {
+                case .start:
+                    // Set up recorder
+                    _filename = "recorded"
+                    let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename!).mov")
+                    
+                    do {
+                        if FileManager.default.fileExists(atPath: videoPath.path) {
+                            try FileManager.default.removeItem(at: videoPath)
+                            print("file removed")
+                        }
+                        } catch {
+                            print(error)
+                        }
+                    
+                    let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mov)
+                                        
+                    let input = AVAssetWriterInput(mediaType: .video, outputSettings: [
+                        AVVideoCodecKey: AVVideoCodecType.h264,
+                        AVVideoWidthKey: 1920,
+                        AVVideoHeightKey: 1080,
+                        AVVideoCompressionPropertiesKey: [
+                            AVVideoAverageBitRateKey: 8000000
+                        ]
+                    ])
+                    // [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 1920, AVVideoHeightKey: 1080])
+                    
+                    input.mediaTimeScale = CMTimeScale(bitPattern: 600)
+                    input.expectsMediaDataInRealTime = true
+                    input.transform = CGAffineTransform(rotationAngle: .pi/2)
+                    
+                    let adapter = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: nil)
+                    if writer.canAdd(input) {
+                        writer.add(input)
+                    }
+                    
+                    writer.startWriting()
+                    writer.startSession(atSourceTime: .zero)
+                    
+                    _assetWriter = writer
+                    _assetWriterInput = input
+                    _adapter = adapter
+                    _captureState = .capturing
+                    _time = timestamp
+                    
+                case .capturing:
+                    if _assetWriterInput?.isReadyForMoreMediaData == true {
+                        let time = CMTime(seconds: timestamp - _time, preferredTimescale: CMTimeScale(600))
+                        _adapter?.append(CMSampleBufferGetImageBuffer(sampleBuffer)!, withPresentationTime: time)
+                    }
+                    break
+                case .end:
+                    guard _assetWriterInput?.isReadyForMoreMediaData == true, _assetWriter!.status != .failed else { break }
+                    let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename!).mov")
+                    _assetWriterInput?.markAsFinished()
+                    _assetWriter?.finishWriting { [weak self] in
+                        self?._captureState = .idle
+                        self?._assetWriter = nil
+                        self?._assetWriterInput = nil
+                        DispatchQueue.main.async {
+                            self?.loadRecordedVideo()
+                            (self?.parent as? ViewController)?.onRecordFinished()
+                        }
+                    }
+                default:
+                    break
+                }
     }
 }

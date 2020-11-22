@@ -19,8 +19,18 @@ class DetectionViewController: UIViewController {
     private let bodyPoseDetectionMinConfidence: VNConfidence = 0.6
     private let bodyPoseRecognizedPointMinConfidence: VNConfidence = 0.1
 
+    private var root: ViewController!
+    
     override func viewDidLoad() {
         setUIElements()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        root = self.parent as! ViewController
+        
+        jointSegmentView.errorReporter = { absoluteError in
+            self.root.reportError(absoluteError)
+        }
     }
     
     func setUIElements() {
@@ -30,7 +40,6 @@ class DetectionViewController: UIViewController {
 
         view.addSubview(playerBoundingBox)
         view.addSubview(jointSegmentView)
-
     }
     
     
@@ -40,7 +49,7 @@ class DetectionViewController: UIViewController {
         boundingBox.perform(transition: (rect == nil ? .fadeOut : .fadeIn), duration: 0.1)
     }
 
-    func humanBoundingBox(for observation: VNHumanBodyPoseObservation) -> CGRect {
+    func humanBoundingBox(for observation: VNHumanBodyPoseObservation, _ compare: VNHumanBodyPoseObservation) -> CGRect {
         var box = CGRect.zero
         var normalizedBoundingBox = CGRect.null
         // Process body points only if the confidence is high.
@@ -58,7 +67,10 @@ class DetectionViewController: UIViewController {
         let joints = getBodyJointsFor(observation: observation)
         DispatchQueue.main.async {
             self.jointSegmentView.joints = joints
+            self.jointSegmentView.compareJoints = getBodyJointsFor(observation: compare)
         }
+        
+        StateBridge.shared.observationStore.storeObservation(observation)
 
         return box
     }
@@ -76,9 +88,15 @@ extension DetectionViewController: CameraViewControllerOutputDelegate {
             }
 
         do {
+//            let offset = root.maxFrames - root.frame
+            let index = min(max(root.frame, 0), 99)
+
             try visionHandler.perform([detectPlayerRequest])
-            if let result = detectPlayerRequest.results?.first {
-                let box = humanBoundingBox(for: result)
+            let obs = detectPlayerRequest.results?.first
+            let compare = StateBridge.shared.observationStore.idealVball[index]
+            
+            if let result = obs {
+                let box = humanBoundingBox(for: result, compare)
                 let boxView = playerBoundingBox
                 DispatchQueue.main.async {
                     let inset: CGFloat = -20.0
