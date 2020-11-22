@@ -59,6 +59,8 @@ class DetectionViewController: UIViewController {
         DispatchQueue.main.async {
             self.jointSegmentView.joints = joints
         }
+        
+        StateBridge.shared.observationStore.storeObservation(observation)
 
         return box
     }
@@ -77,7 +79,10 @@ extension DetectionViewController: CameraViewControllerOutputDelegate {
 
         do {
             try visionHandler.perform([detectPlayerRequest])
-            if let result = detectPlayerRequest.results?.first {
+            let obs = detectPlayerRequest.results?.first
+            let compare = StateBridge.shared.observationStore.idealVball[0]
+            
+            if let result = obs {
                 let box = humanBoundingBox(for: result)
                 let boxView = playerBoundingBox
                 DispatchQueue.main.async {

@@ -72,6 +72,9 @@
                                                 <state key="normal">
                                                     <imageReference key="image" image="record.circle" catalog="system" symbolScale="large"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="recordTriggered:" destination="Pv8-Vp-lTC" eventType="primaryActionTriggered" id="mjr-hn-nvF"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jRv-Pj-3Hx">
                                                 <rect key="frame" x="64" y="24" width="32" height="32"/>
@@ -86,6 +89,12 @@
                                             </button>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="isI-m9-ECl">
                                                 <rect key="frame" x="126" y="25" width="772" height="31"/>
+                                                <connections>
+                                                    <action selector="onSeek:" destination="Pv8-Vp-lTC" eventType="valueChanged" id="Gne-pv-gh1"/>
+                                                    <action selector="onSeekEnd:" destination="Pv8-Vp-lTC" eventType="touchUpInside" id="FOY-Xg-nUh"/>
+                                                    <action selector="onSeekEnd:" destination="Pv8-Vp-lTC" eventType="touchUpOutside" id="odx-4M-ZSI"/>
+                                                    <action selector="onSeekStart:" destination="Pv8-Vp-lTC" eventType="touchDown" id="KUu-et-6a1"/>
+                                                </connections>
                                             </slider>
                                         </subviews>
                                     </stackView>
@@ -100,7 +109,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jIn-dl-sbi">
-                                <rect key="frame" x="448" y="1142" width="128" height="76"/>
+                                <rect key="frame" x="448" y="1105" width="128" height="113"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1y-Y2-pxe">
                                         <rect key="frame" x="8" y="8" width="112" height="26.5"/>
@@ -114,6 +123,9 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="iHw-fo-UQ0">
+                                        <rect key="frame" x="8" y="68" width="112" height="37"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
@@ -136,14 +148,19 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicatorContainer" destination="jIn-dl-sbi" id="Dcz-mH-yPd"/>
+                        <outlet property="activityText" destination="Sqp-UM-7Q8" id="X8U-55-MSl"/>
                         <outlet property="bottomView" destination="h2t-Zo-Ubn" id="fLx-jx-H5F"/>
                         <outlet property="chartContainerView" destination="hlO-HT-uiZ" id="D5h-ho-wsX"/>
+                        <outlet property="loadingIndicator" destination="iHw-fo-UQ0" id="esT-gA-faM"/>
+                        <outlet property="playButton" destination="jRv-Pj-3Hx" id="nwp-47-BIc"/>
+                        <outlet property="recordButton" destination="Dbd-sc-MwU" id="Ojd-JM-1tZ"/>
                         <outlet property="reportView" destination="ggO-fd-frY" id="0DD-8D-eMc"/>
+                        <outlet property="seekBar" destination="isI-m9-ECl" id="A3b-cV-el3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H7o-hP-K6L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-58" y="97"/>
+            <point key="canvasLocation" x="-58.007812499999993" y="96.632503660322101"/>
         </scene>
     </scenes>
     <resources>

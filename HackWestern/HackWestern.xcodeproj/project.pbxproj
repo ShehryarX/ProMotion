@@ -18,6 +18,8 @@
 		2B29FA5325691FE000BB577E /* JointSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B29FA5225691FE000BB577E /* JointSegmentView.swift */; };
 		2B6FAEBA2569BBB0009756A8 /* DetailsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B6FAEB92569BBB0009756A8 /* DetailsViewController.storyboard */; };
 		2B6FAEBF2569BBC4009756A8 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6FAEBE2569BBC4009756A8 /* DetailsViewController.swift */; };
+		2B7F44A6256A54D1007F00FD /* TripleClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 2B7F44A5256A54D1007F00FD /* TripleClassifier.mlmodel */; };
+		2B7F44AB256A5603007F00FD /* ideal-vball.mov in Resources */ = {isa = PBXBuildFile; fileRef = 2B7F44AA256A5603007F00FD /* ideal-vball.mov */; };
 		2B9545392568CED60064C069 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9545382568CED60064C069 /* AppDelegate.swift */; };
 		2B95453B2568CED60064C069 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B95453A2568CED60064C069 /* ViewController.swift */; };
 		2B95453D2568CED60064C069 /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 2B95453C2568CED60064C069 /* Experience.rcproject */; };
@@ -58,6 +60,8 @@
 		2B29FA5225691FE000BB577E /* JointSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JointSegmentView.swift; sourceTree = "<group>"; };
 		2B6FAEB92569BBB0009756A8 /* DetailsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailsViewController.storyboard; sourceTree = "<group>"; };
 		2B6FAEBE2569BBC4009756A8 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		2B7F44A5256A54D1007F00FD /* TripleClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TripleClassifier.mlmodel; sourceTree = "<group>"; };
+		2B7F44AA256A5603007F00FD /* ideal-vball.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "ideal-vball.mov"; sourceTree = "<group>"; };
 		2B9545352568CED60064C069 /* HackWestern.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackWestern.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B9545382568CED60064C069 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B95453A2568CED60064C069 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +140,8 @@
 		2B9545372568CED60064C069 /* HackWestern */ = {
 			isa = PBXGroup;
 			children = (
+				2B7F44AA256A5603007F00FD /* ideal-vball.mov */,
+				2B7F44A5256A54D1007F00FD /* TripleClassifier.mlmodel */,
 				2B9545382568CED60064C069 /* AppDelegate.swift */,
 				2B95453A2568CED60064C069 /* ViewController.swift */,
 				2B95453C2568CED60064C069 /* Experience.rcproject */,
@@ -291,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B6FAEBA2569BBB0009756A8 /* DetailsViewController.storyboard in Resources */,
+				2B7F44AB256A5603007F00FD /* ideal-vball.mov in Resources */,
 				2B9545452568CED70064C069 /* LaunchScreen.storyboard in Resources */,
 				2B29FA28256905E600BB577E /* CameraViewController.xib in Resources */,
 				2B29FA4E25691CCF00BB577E /* DetectionViewController.xib in Resources */,
@@ -367,6 +374,7 @@
 				2B29FA4925691CB900BB577E /* DetectionViewController.swift in Sources */,
 				2B6FAEBF2569BBC4009756A8 /* DetailsViewController.swift in Sources */,
 				2B29FA37256908C000BB577E /* VideoOutputViews.swift in Sources */,
+				2B7F44A6256A54D1007F00FD /* TripleClassifier.mlmodel in Sources */,
 				2B29FA4425691BA300BB577E /* BoundingBoxView.swift in Sources */,
 				2B29FA3F25691B8600BB577E /* AnimatingTransitioning.swift in Sources */,
 				2B29FA2D2569062D00BB577E /* CameraViewController.swift in Sources */,
