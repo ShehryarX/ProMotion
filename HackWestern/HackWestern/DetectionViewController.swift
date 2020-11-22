@@ -59,10 +59,23 @@ class DetectionViewController: UIViewController {
         DispatchQueue.main.async {
             self.jointSegmentView.joints = joints
         }
+        
+        // Push to pose observations queue
+        StateBridge.shared.classifier.storeObservation(observation)
 
         return box
     }
 
+    func update() {
+        // run classifier, post results
+//        let bridge = StateBridge.shared
+//        
+//        let root = parent as! ViewController
+        // TODO: determine classification routine
+//        if let output = bridge.classifier.classifyAction() {
+//            root.update(with: output)
+//        }
+    }
 }
 
 
@@ -85,6 +98,9 @@ extension DetectionViewController: CameraViewControllerOutputDelegate {
                     let viewRect = controller.viewRectForVisionRect(box).insetBy(dx: inset, dy: inset)
                     self.updateBoundingBox(boxView, withRect: viewRect)
                 }
+//                DispatchQueue.main.async {
+//                    self.update()
+//                }
             }
         } catch {
             AppError.display(error, inViewController: self)

@@ -72,6 +72,9 @@
                                                 <state key="normal">
                                                     <imageReference key="image" image="record.circle" catalog="system" symbolScale="large"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="recordTriggered:" destination="Pv8-Vp-lTC" eventType="primaryActionTriggered" id="QGC-IS-bno"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jRv-Pj-3Hx">
                                                 <rect key="frame" x="64" y="24" width="32" height="32"/>
@@ -115,7 +118,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <color key="backgroundColor" red="0.16560678383738725" green="0.16560678383738725" blue="0.16560678383738725" alpha="0.46787330679342048" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="128" id="tK6-v4-wxD"/>
                                 </constraints>
@@ -136,8 +139,10 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicatorContainer" destination="jIn-dl-sbi" id="Dcz-mH-yPd"/>
+                        <outlet property="activityText" destination="Sqp-UM-7Q8" id="rG5-2P-Z8f"/>
                         <outlet property="bottomView" destination="h2t-Zo-Ubn" id="fLx-jx-H5F"/>
                         <outlet property="chartContainerView" destination="hlO-HT-uiZ" id="D5h-ho-wsX"/>
+                        <outlet property="recordButton" destination="Dbd-sc-MwU" id="Q4z-Ig-9Oh"/>
                         <outlet property="reportView" destination="ggO-fd-frY" id="0DD-8D-eMc"/>
                     </connections>
                 </viewController>
