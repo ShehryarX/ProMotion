@@ -4,7 +4,7 @@
 [Devpost](https://devpost.com/software/promotion) \
 [Video Demo](https://youtu.be/Z5VNDa7FNNA) 
 
-![Preview GIF](PromotionImages/PromotionPreview.gif)
+![Preview GIF](https://github.com/rafitj/ProMotion/blob/main/ProMotionImages/PromotionPreview.gif?raw=true)
 
 
 ## Description
