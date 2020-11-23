@@ -1,6 +1,13 @@
 # ProMotion
-DevPost: https://devpost.com/software/promotion
-Video Demo: https://youtu.be/Z5VNDa7FNNA
+
+## Preview
+[Devpost](https://devpost.com/software/promotion) \
+[Video Demo](https://youtu.be/Z5VNDa7FNNA) 
+
+![Preview GIF](https://github.com/rafitj/ProMotion/blob/main/ProMotionImages/PromotionPreview.gif?raw=true)
+
+
+## Description
 
 2020 has been a difficult year for all of us. It’s been a year full of bad news, boredom, isolation and a disconnect from friends and the community. The pandemic has forced us to spend most of the year in isolation and for the most part has negatively impacted both mental and physical wellbeing. We seem to have forgotten what day of the week it is and every day feels repetitive and mundane.
 
